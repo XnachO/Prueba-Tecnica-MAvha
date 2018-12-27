@@ -15,9 +15,12 @@
 	<artifactId>pruebamavha</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>Pruebamavha</name>
+	<name>Prueba MAvha</name>
 
 	<properties>
+		<swagger.codegen.version>2.2.2</swagger.codegen.version>
+		<spec.path>src/main/resources/api/api.yaml</spec.path>
+
 		<argLine>-Djava.security.egd=file:/dev/./urandom -Xmx256m</argLine>
 		<assertj.version>3.6.2</assertj.version>
 		<awaitility.version>2.0.0</awaitility.version>
@@ -168,6 +171,12 @@
 			<artifactId>json-path</artifactId>
 			<scope>test</scope>
 			<!-- parent POM declares this dependency in default (compile) scope -->
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${springfox.version}</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.springfox</groupId>
@@ -349,6 +358,33 @@
 	<build>
 		<defaultGoal>spring-boot:run</defaultGoal>
 		<plugins>
+			<plugin>
+				<groupId>io.swagger</groupId>
+				<artifactId>swagger-codegen-maven-plugin</artifactId>
+				<version>${swagger.codegen.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${spec.path}</inputSpec>
+							<language>spring</language>
+							<!-- <output>${project.build.directory}/generated-sources</output> -->
+							<configOptions>
+								<sourceFolder>src/main/java</sourceFolder>
+							</configOptions>
+							<output>.</output>
+							<apiPackage>${project.groupId}.rest</apiPackage>
+							<modelPackage>${project.groupId}.model</modelPackage>
+							<invokerPackage>${project.groupId}.invoke</invokerPackage>
+							<generateApiTests>false</generateApiTests>
+							<generateApiDocumentation>false</generateApiDocumentation>
+							<generateModelDocumentation>false</generateModelDocumentation>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -535,6 +571,23 @@
 									</pluginExecutionFilter>
 									<action>
 										<ignore />
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>io.swagger</groupId>
+										<artifactId>
+											swagger-codegen-maven-plugin
+										</artifactId>
+										<versionRange>
+											[2.2.2,)
+										</versionRange>
+										<goals>
+											<goal>generate</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
 									</action>
 								</pluginExecution>
 							</pluginExecutions>
