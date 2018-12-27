@@ -1,6 +1,8 @@
 package com.nachoseluy.prueba.mavha.repository;
 
 
+import java.util.ArrayList;
+
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.nachoseluy.prueba.mavha.domain.Persona;
@@ -14,6 +16,7 @@ public interface PersonaRepository
 	Persona findByDni(String dni);
 
 	// Obtiene un envío a partir del número de seguimiento
-	Persona findByDniOrNombreOrEdad(String dni, String nombre, Integer edad);
+	ArrayList<Persona> findByDniOrNombreOrEdad(String dni, String nombre,
+			Integer edad);
 
 }
