@@ -1,0 +1,103 @@
+swagger: '2.0'
+info:
+  version: 0.1.0
+  title: Prueba MAvha
+  description: |
+    API para gestionar la entidad Persona.
+basePath: /pruebamavha/v1/
+produces:
+  - application/json
+
+paths:
+  /personas:
+    post:
+      description: |
+        Dar de alta una persona incluyendo una foto.
+      parameters:
+        - name: datosPersona
+          in: body
+          description: |
+            Datos de la Persona
+          schema:
+            $ref: '#/definitions/PersonaRequest'
+          
+      responses:
+        '200':
+          description: |
+            OK
+          schema:
+            $ref: '#/definitions/PersonaResponse'
+
+    get:
+      description: |
+        Listado de Personas con filtro por DNI, nombre y edad
+      parameters:
+        - name: dni
+          in: query
+          type: string
+          description: |
+            Numero de DNI
+        - name: nombre
+          in: query
+          type: string
+          description: |
+            Nombre de la Persona
+        - name: edad
+          in: query
+          type: integer
+          description: |
+            Edad de la Persona
+          
+      responses:
+        '200':
+          description: |
+            OK
+          schema:
+            $ref: '#/definitions/PersonaResponse'
+
+  /personas/{idPersona}:
+    get:
+      description: |
+        Listado de personas
+      parameters:
+        - name: idPersona
+          in: path
+          type: string
+          description: |
+            Numero de DNI
+          
+      responses:
+        '200':
+          description: |
+            OK
+          schema:
+            $ref: '#/definitions/PersonaResponse'
+
+
+definitions:
+  PersonaRequest:
+    type: object
+    properties:
+      dni:
+        type: string
+        default: ''
+        maxLength: 10
+      nombre:
+        type: string
+        default: ''
+      apellido:
+        type: string
+        default: ''
+      edad:
+        type: integer
+        default: ''
+      foto:
+        type: string
+        default: ''
+        description: Archivo codificado en base64
+
+  PersonaResponse:
+    type: array
+    uniqueItems: false
+    items:
+      $ref: '#/definitions/PersonaRequest'
