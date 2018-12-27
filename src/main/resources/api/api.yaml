@@ -9,12 +9,12 @@ produces:
   - application/json
 
 paths:
-  /persona:
+  /personas:
     post:
       description: |
         Dar de alta una persona incluyendo una foto.
       parameters:
-        - name: bodyEnvio
+        - name: datosPersona
           in: body
           description: |
             Datos de la Persona
@@ -55,7 +55,7 @@ paths:
           schema:
             $ref: '#/definitions/PersonaResponse'
 
-  /persona/{idPersona}:
+  /personas/{idPersona}:
     get:
       description: |
         Listado de personas
@@ -81,6 +81,7 @@ definitions:
       dni:
         type: string
         default: ''
+        maxLength: 10
       nombre:
         type: string
         default: ''
@@ -93,6 +94,7 @@ definitions:
       foto:
         type: string
         default: ''
+        description: Archivo codificado en base64
 
   PersonaResponse:
     type: array

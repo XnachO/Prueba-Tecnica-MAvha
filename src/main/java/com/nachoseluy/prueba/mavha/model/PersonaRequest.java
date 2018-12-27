@@ -9,7 +9,7 @@ import javax.validation.constraints.*;
 /**
  * PersonaRequest
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-12-26T22:22:21.285-03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-12-27T17:51:20.683-03:00")
 
 public class PersonaRequest   {
   @JsonProperty("dni")
@@ -37,6 +37,7 @@ public class PersonaRequest   {
    * @return dni
   **/
   @ApiModelProperty(value = "")
+  @Size(max=10)
   public String getDni() {
     return dni;
   }
@@ -105,10 +106,10 @@ public class PersonaRequest   {
   }
 
    /**
-   * Get foto
+   * Archivo codificado en base64
    * @return foto
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Archivo codificado en base64")
   public String getFoto() {
     return foto;
   }
